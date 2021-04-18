@@ -9,8 +9,7 @@ opts.secretOrKey = process.env.JWT_SECRET
 
 const authorizeJwtToken = (jwtPayload, done) => {
     User.findById(jwtPayload.id)
-        .populate("companies")
-        .select("name username email companies")
+        .select("name username email isAdmin stayLoggedIn")
         .then(user => done(null, user || false))
         .catch(err => {
             console.error(err)

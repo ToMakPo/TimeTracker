@@ -1,11 +1,10 @@
 const router = require("express").Router()
 const db = require('../models')
 
-// router.get('/lobby/:code', (req, res) => {
-//     db.Lobby
-//         .find({ code: req.params.code })
-//         .then(data => res.json(data))
-//         .catch(err => res.status(422).json(err))
-// })
+router.get('/user-companies/:id', async (req, res) => {
+    const { id } = req.params
+    const companies = await db.Company.find({ employees: id })
+    res.json(companies)
+})
 
 module.exports = router

@@ -1,13 +1,15 @@
 const mongoose = require("mongoose")
-const Company = require("./Company")
 
 const userSchema = new mongoose.Schema({
+    name: {
+        type: String,
+        required: "Enter the user's name",
+    },
     username: {
         type: String,
         trim: true,
         required: "Enter a username",
-        unique: true,
-        match: ''
+        unique: true
     },
     loginName: {
         type: String,
@@ -28,10 +30,6 @@ const userSchema = new mongoose.Schema({
         required: true,
         required: "Enter a password hash"
     },
-    companies: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Company
-    }],
     isAdmin: {
         type: Boolean,
         default: false

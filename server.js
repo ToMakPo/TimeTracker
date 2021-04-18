@@ -33,7 +33,7 @@ app.use("/api", require("./routes/authentication"))
 app.use(apiRoutes)
 
 /// SERVER ///
-app.listen(PORT, () => {
+app.listen(PORT, _ => {
     console.info(`App running on http://localhost:${PORT}`)
 })
 

@@ -1,0 +1,71 @@
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  box-sizing: border-box;
+  padding: 5px;
+  grid-gap: 5px;
+  width: 100%;
+}
+
+form .form-item {
+  display: flex;
+}
+
+form [class*='-field'] {
+  flex-direction: column;
+}
+
+form [class*='-field'] > *:not(label) {
+  box-sizing: border-box;
+  height: 30px;
+  padding: 5px;
+  width: 100%;
+  font-family: monospace;
+}
+
+form [class*='-field'] label {
+  font-size: 0.8em;
+  display: block;
+  margin-bottom: -2px;
+  margin-left: 5px;
+  white-space: nowrap;
+  z-index: 5;
+}
+
+form .textbox-field textarea {
+  resize: none;
+  min-height: 100px;
+}
+
+form .checkbox {
+  align-items: center;
+  font-size: 0.8em;
+}
+
+form .field-group {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: stretch;
+  grid-gap: 5px;
+}
+
+form .field-group .form-item {
+  flex: 1 1 calc(calc(50px - 100%) * 999);
+  width: 170px;
+}
+
+form button.bg-accept {
+  background-color: cadetblue;
+  color: white;
+  transition: 0.25s;
+}
+
+form button:hover {
+  filter: brightness(85%);
+}
+
+form button:active {
+  filter: brightness(65%);
+}

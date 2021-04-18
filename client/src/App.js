@@ -1,0 +1,43 @@
+import { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useAuthenticatedUser, useAuthTokenStore, useIsAuthenticated } from "./utils/auth"
+import GlobalValues from './utils/GlobalValues'
+import API from './utils/API'
+
+import './styles/App.css'
+import PageHeader from './pages/PageHeader'
+import PageMain from './pages/PageMain'
+import PageFooter from './pages/PageFooter'
+
+const App = _ => {
+	useAuthTokenStore()
+	const loggedIn = useIsAuthenticated()
+	const user = useAuthenticatedUser()
+	const history = useHistory()
+	console.log(history);
+	const [companies, setCompanies] = useState()
+	const [company, setCompany] = useState()
+
+	useEffect(async _ => {
+		console.log(user);
+		if (user) {
+			const companies = await API.getUserCompanies(user._id)
+			console.log(companies);
+			setCompanies(companies)
+			if (companies.length === 1) {
+				setCompany(companies[0])
+			} else {
+				history.push("/company")
+			}
+		}
+	}, [loggedIn])
+
+	return (
+		<GlobalValues.Provider value={{user, companies, company, setCompany}}>
+			<PageHeader loggedIn={loggedIn}/>
+			<PageMain loggedIn={loggedIn}/>
+			<PageFooter/>
+		</GlobalValues.Provider>
+	)
+}
+export default App

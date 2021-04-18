@@ -1,8 +1,11 @@
 const validatorFactory = require("./validatorFactory")
 
 const registerValidator = validatorFactory({
-    username: { type: "string" },
-    password: { type: "string", empty: false }
+    name: "string",
+    username: "string",
+    password: "string",
+    confirm: "string",
+    email: "string"
 })
 
 module.exports = registerValidator

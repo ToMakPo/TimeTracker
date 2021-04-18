@@ -1,0 +1,61 @@
+form
+    display: flex
+    flex-direction: column
+    align-items: stretch
+    $gap: 5px
+    box-sizing: border-box
+    padding: $gap
+    grid-gap: $gap
+    width: 100%
+
+    .form-item
+        display: flex
+
+    [class*='-field']
+        flex-direction: column
+
+        & > *:not(label) 
+            box-sizing: border-box
+            height: 30px
+            padding: 5px
+            width: 100%
+            font-family: monospace
+
+        label
+            font-size: 0.8em
+            display: block
+            margin-bottom: -2px
+            margin-left: 5px
+            white-space: nowrap
+            z-index: 5
+            
+    .textbox-field
+        textarea
+            resize: none
+            min-height: 100px
+    
+    .checkbox
+        align-items: center
+    
+        label
+        font-size: 0.8em
+
+    .field-group
+        display: flex
+        flex-wrap: wrap
+        width: 100%
+        justify-content: stretch
+        grid-gap: $gap
+
+        .form-item
+            flex: 1 1 calc(calc(50px - 100%) * 999)
+            width: 170px
+    
+    button.bg-accept
+        background-color: cadetblue
+        color: white
+        transition: 0.25s
+    button:hover
+        filter: brightness(85%)
+    button:active
+        filter: brightness(65%)

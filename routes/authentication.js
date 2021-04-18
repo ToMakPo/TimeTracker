@@ -17,10 +17,10 @@ router.post("/authenticated", authenticateUser, (req, res) => {
 
 router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
     const { username, password } = req.body
-    const loginName = username.toLowerCase()
+    const loginName = username.replace(/[_\.]/g, '').toLowerCase()
 
     try {
-        const user = await User.findOne({ $or: [{ loginName, email: loginName }]})
+        const user = await User.findOne({ $or: [{ loginName }, { email: username.toLowerCase() }]})
 
         if (!user) {
             /// If the username was not found, then return an error message.
@@ -36,7 +36,10 @@ router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
             return res.status(404).json({ default: "username or password is invalid." })
         }
 
-        const payload = { id: userData._id, username: userData.username }
+        const payload = {
+            id: userData._id, 
+            username: userData.username
+        }
 
         /// Create a signed JWT token to send back to the client for reauthentication.
         const token = await jwtSign(payload, process.env.JWT_SECRET, {
@@ -54,30 +57,34 @@ router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
     }
 })
 
-const usernamePattern = /^(?=.{8,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
+const usernamePattern = /^(?=.{5,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/
 const passwordPattern = /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])([a-zA-Z0-9@$!%*?&]{8,})$/
 const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
 router.post("/register", validateBodyWith(registerValidator), async (req, res) => {
     try {
-        const { username, password, confirm } = req.body
+        const { name, username, password, confirm } = req.body
         const email = req.body.email.toLowerCase()
-        const loginName = username.toLowerCase()
+        const loginName = username.replace(/[_\.]/g, '').toLowerCase()
+
+        if (name === '') {
+            return res.status(400).json({ focus: "name", message: "The user's name is blank." })
+        }
 
         if (!usernamePattern.test(username)) {
             return res.status(400).json({ focus: "username", message: "The username is not valid." })
         }
 
-        if (!emailPattern.test(email)) {
-            return res.status(400).json({ focus: "email", message: "The email is not valid." })
-        }
-
         if (!passwordPattern.test(password)) {
-            return res.status(400).json({ focus: "password", message: "The password is not valid." })
+            return res.status(400).json({ focus: "password", message: "The password must be at least 8 characters\nand have at least one of each:\n - lowercase letter\n - uppercase letter\n - number\n - special character (@$!%*?&)" })
         }
 
         if (confirm !== password) {
             return res.status(400).json({ focus: "confirm", message: "The password confirmation does not match the password." })
+        }
+
+        if (!emailPattern.test(email)) {
+            return res.status(400).json({ focus: "email", message: "The email is not valid." })
         }
 
         if (await User.findOne({ loginName })) {
@@ -89,6 +96,7 @@ router.post("/register", validateBodyWith(registerValidator), async (req, res) =
         }
 
         const newUser = new User({
+            name,
             username,
             loginName,
             email,
@@ -100,7 +108,6 @@ router.post("/register", validateBodyWith(registerValidator), async (req, res) =
         const { hash,  ...userData } = newUser._doc
 
         res.status(200).json(userData)
-
     } catch (err) {
         console.error(err)
         res.status(500).json({ message: "Something went wrong creating your account." })
