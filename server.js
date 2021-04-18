@@ -10,9 +10,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 /// PASSPORT ///
-const passport = require("passport");
-app.use(passport.initialize());
-passport.use(require("./config/jwtPassportStrategy"));
+const passport = require("passport")
+app.use(passport.initialize())
+passport.use(require("./config/jwtPassportStrategy"))
 
 /// ENVIORNMENT ///
 app.use(process.env.NODE_ENV === "production" 
@@ -29,7 +29,7 @@ mongoose.connect(process.env.MONGODB_URI, {
 })
 
 /// ROUTES ///
-app.use("/api", require("./routes/authentication"));
+app.use("/api", require("./routes/authentication"))
 app.use(apiRoutes)
 
 /// SERVER ///
