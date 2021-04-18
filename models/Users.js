@@ -31,7 +31,11 @@ const userSchema = new mongoose.Schema({
     companies: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: Company
-    }]
+    }],
+    isAdmin: {
+        type: Boolean,
+        default: false
+    }
 })
 
 const User = mongoose.model("user", userSchema)
