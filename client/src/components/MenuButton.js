@@ -1,6 +1,6 @@
 import { BsThreeDotsVertical } from "react-icons/bs"
 
-function MenuIcon({className, size, ...props}) {
+function MenuButton({className, size, ...props}) {
     className = 'menu-button' + (className ? (' ' + className) : '') 
     return <BsThreeDotsVertical
         className={className}
@@ -9,4 +9,4 @@ function MenuIcon({className, size, ...props}) {
     />
 }
 
-export default MenuIcon
+export default MenuButton

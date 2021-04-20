@@ -1,6 +1,6 @@
 import { IoIosClose } from "react-icons/io"
 
-function CloseIcon({className, size, ...props}) {
+function CloseButton({className, size, ...props}) {
     className = 'close-button' + (className ? (' ' + className) : '') 
     return <IoIosClose
         className={className}
@@ -9,4 +9,4 @@ function CloseIcon({className, size, ...props}) {
     />
 }
 
-export default CloseIcon
+export default CloseButton

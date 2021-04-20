@@ -1,6 +1,6 @@
 import { IoIosAddCircle } from "react-icons/io"
 
-function AddIcon({className, size, color, ...props}) {
+function AddButton({className, size, color, ...props}) {
     className = 'add-button' + (className ? (' ' + className) : '') 
     return <IoIosAddCircle
         className={className}
@@ -10,4 +10,4 @@ function AddIcon({className, size, color, ...props}) {
     />
 }
 
-export default AddIcon
+export default AddButton
