@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 
 import '../styles/Toast.css'
 
-const Toast = ({message, bgColor, fgColor, delay, setToast}) => {
+function Toast({message, bgColor, fgColor, delay, setToast}) {
     useEffect(_ => setTimeout(_ => setToast(), delay || (message.split(' ').length * 450)), [])
 
     return (

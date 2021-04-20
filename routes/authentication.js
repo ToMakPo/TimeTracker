@@ -22,9 +22,16 @@ router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
     try {
         const user = await User.findOne({ $or: [{ loginName }, { email: username.toLowerCase() }]})
 
+        if (username === '') {
+            return res.status(400).json({ focus: "username", message: "The username is blank." })
+        }
+        if (password === '') {
+            return res.status(400).json({ focus: "password", message: "The password is blank." })
+        }
+
         if (!user) {
             /// If the username was not found, then return an error message.
-            return res.status(404).json({ default: "username or password is invalid." })
+            return res.status(404).json({ focus: "username", message: "username or password is invalid." })
         }
 
         const { hash, ...userData } = user._doc
@@ -33,7 +40,7 @@ router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
 
         if (!isMatch) {
             /// If the password was wrong, then return an error message.
-            return res.status(404).json({ default: "username or password is invalid." })
+            return res.status(404).json({ focus: "username", message: "username or password is invalid." })
         }
 
         const payload = {
@@ -53,7 +60,7 @@ router.post("/login", validateBodyWith(loginValidator), async (req, res) => {
         })
     } catch (err) {
         console.error(err)
-        res.status(500).json({ default: "Something went wrong trying to log in." })
+        res.status(500).json({ message: "Something went wrong trying to log in." })
     }
 })
 
@@ -63,12 +70,15 @@ const emailPattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
 
 router.post("/register", validateBodyWith(registerValidator), async (req, res) => {
     try {
-        const { name, username, password, confirm } = req.body
+        const { firstName, lastName, username, password, confirm } = req.body
         const email = req.body.email.toLowerCase()
         const loginName = username.replace(/[_\.]/g, '').toLowerCase()
 
-        if (name === '') {
-            return res.status(400).json({ focus: "name", message: "The user's name is blank." })
+        if (firstName === '') {
+            return res.status(400).json({ focus: "firstName", message: "The user's first name is blank." })
+        }
+        if (lastName === '') {
+            return res.status(400).json({ focus: "lastName", message: "The user's last name is blank." })
         }
 
         if (!usernamePattern.test(username)) {
@@ -96,7 +106,10 @@ router.post("/register", validateBodyWith(registerValidator), async (req, res) =
         }
 
         const newUser = new User({
-            name,
+            name: {
+                first: firstName,
+                last: lastName
+            },
             username,
             loginName,
             email,

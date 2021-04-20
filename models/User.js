@@ -2,8 +2,16 @@ const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
     name: {
-        type: String,
-        required: "Enter the user's name",
+        first: {
+            type: String,
+            trim: true,
+            required: "Enter a first name"
+        },
+        last: {
+            type: String,
+            trim: true,
+            required: "Enter a last name"
+        }
     },
     username: {
         type: String,
@@ -33,7 +41,12 @@ const userSchema = new mongoose.Schema({
     isAdmin: {
         type: Boolean,
         default: false
-    }
+    },
+    logs: [{
+        start: Date,
+        end: Date,
+        notes: String
+    }]
 })
 
 const User = mongoose.model("user", userSchema)

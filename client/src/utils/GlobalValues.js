@@ -1,10 +1,7 @@
 import { createContext } from "react"
 
 const GlobalValues = createContext({
-  user: {},
-  companies: [],
-  company: {},
-  setCompany: _ => null
+  user: {}
 })
 
 export default GlobalValues

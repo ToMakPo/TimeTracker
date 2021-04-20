@@ -21,7 +21,12 @@ form [class*='-field'] > *:not(label) {
   height: 30px;
   padding: 5px;
   width: 100%;
+  min-width: 150px;
   font-family: monospace;
+}
+
+form [class*='-field'] > *:not(label).fit {
+  min-width: none;
 }
 
 form [class*='-field'] label {

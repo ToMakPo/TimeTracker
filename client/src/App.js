@@ -14,26 +14,9 @@ const App = _ => {
 	const loggedIn = useIsAuthenticated()
 	const user = useAuthenticatedUser()
 	const history = useHistory()
-	console.log(history);
-	const [companies, setCompanies] = useState()
-	const [company, setCompany] = useState()
-
-	useEffect(async _ => {
-		console.log(user);
-		if (user) {
-			const companies = await API.getUserCompanies(user._id)
-			console.log(companies);
-			setCompanies(companies)
-			if (companies.length === 1) {
-				setCompany(companies[0])
-			} else {
-				history.push("/company")
-			}
-		}
-	}, [loggedIn])
 
 	return (
-		<GlobalValues.Provider value={{user, companies, company, setCompany}}>
+		<GlobalValues.Provider value={{user}}>
 			<PageHeader loggedIn={loggedIn}/>
 			<PageMain loggedIn={loggedIn}/>
 			<PageFooter/>

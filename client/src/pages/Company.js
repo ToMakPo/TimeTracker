@@ -35,9 +35,9 @@ const Company = _ => {
                 <div className='modal'>
                     <CloseButton onClick={_ => setModal()} />
                     <h2>{company ? 'Edit' : 'New'} Company</h2>
-                    <form onSubmit={}>
+                    {/* <form onSubmit={}> */}
 
-                    </form>
+                    {/* </form> */}
                 </div>
             </div>
         )

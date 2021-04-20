@@ -9,7 +9,8 @@ import Checkbox from '../components/Checkbox'
 import Toast from '../components/Toast'
 
 const Signup = _ => {
-    const nameInput = useRef('')
+    const firstNameInput = useRef('')
+    const lastNameInput = useRef('')
     const usernameInput = useRef('')
     const passwordInput = useRef('')
     const confirmInput = useRef('')
@@ -23,7 +24,8 @@ const Signup = _ => {
         event.preventDefault()
 
         const data = {
-            name: nameInput.current.value,
+            firstName: firstNameInput.current.value,
+            lastName: lastNameInput.current.value,
             email: emailInput.current.value,
             username: usernameInput.current.value,
             password: passwordInput.current.value,
@@ -42,7 +44,8 @@ const Signup = _ => {
             // Handle error responses from the API. This will include
             
             switch (err.response?.data?.focus) {
-                case 'name': nameInput.current.focus(); break
+                case 'firstname': firstNameInput.current.focus(); break
+                case 'lastname': lastNameInput.current.focus(); break
                 case 'email': emailInput.current.focus(); break
                 case 'username': usernameInput.current.focus(); break
                 case 'password': passwordInput.current.focus(); break
@@ -67,37 +70,46 @@ const Signup = _ => {
     }
 
     return (
-        <>
+        <div className='signup-page'>
             <h2>Sign Up</h2>
             <form onSubmit={handleSubmit}>
+                <div className="field-group">
+                    <Input
+                        name='First Name'
+                        autoComplete='given-name'
+                        autoFocus
+                        ref={firstNameInput}
+                    />
+                    <Input
+                        name='Last Name'
+                        autoComplete='family-name'
+                        ref={lastNameInput}
+                    />
+                </div>
                 <Input
-                    name='Name'
-                    autoComplete='name'
-                    autoFocus
-                    ref={nameInput}
+                    name='Email'
+                    autoComplete='email'
+                    ref={emailInput}
                 />
                 <Input
                     name='Username'
                     autoComplete='username'
                     ref={usernameInput}
                 />
-                <Input
-                    name='Password'
-                    type='password'
-                    autoComplete='new-password'
-                    ref={passwordInput}
-                />
-                <Input
-                    name='Confirm Password'
-                    type='password'
-                    autoComplete='none'
-                    ref={confirmInput}
-                />
-                <Input
-                    name='Email'
-                    autoComplete='email'
-                    ref={emailInput}
-                />
+                <div className="field-group">
+                    <Input
+                        name='Password'
+                        type='password'
+                        autoComplete='new-password'
+                        ref={passwordInput}
+                    />
+                    <Input
+                        name='Confirm Password'
+                        type='password'
+                        autoComplete='none'
+                        ref={confirmInput}
+                    />
+                </div>
                 <Checkbox
                     name='Stay Logged In'
                     ref={stayLoggedInCheckbox}
@@ -112,7 +124,7 @@ const Signup = _ => {
                 <Link to='/login'> Login</Link>
             </p>
             {toast && <Toast {...toast} setToast={setToast}/>}
-        </>
+        </div>
     )
 }
 

@@ -1,0 +1,15 @@
+.shift-log {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.shift-log table, .shift-log td, .shift-log th {
+  padding: 3px 10px;
+  border: 1px solid black;
+  text-align: center;
+}
+
+.shift-log th {
+  background-color: #666;
+  color: #fff;
+}
