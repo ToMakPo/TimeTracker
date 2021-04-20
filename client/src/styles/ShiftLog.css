@@ -49,6 +49,7 @@
   padding: 3px 10px;
   border: 1px solid black;
   text-align: center;
+  vertical-align: top;
 }
 
 .shift-log > table th {

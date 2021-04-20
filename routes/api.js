@@ -34,15 +34,15 @@ router.put('/shift-logs/:userId', async (req, res) => {
 
     if ('end' in data) data.end = data.end || null
 
-    // try {
+    try {
         const user = await User.findById(userId)
         user.updateLogById(logId, data)
         
         res.status(200).json(true)
-    // } catch (error) {
-    //     res.status(500).json({message: 'Was not able to add log.'})
-    //     console.error(error)
-    // }
+    } catch (error) {
+        res.status(500).json({message: 'Was not able to add log.'})
+        console.error(error)
+    }
 })
 
 router.delete('/shift-logs/:userId', async (req, res) => {
