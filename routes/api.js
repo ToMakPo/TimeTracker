@@ -20,7 +20,7 @@ router.post('/shift-logs/:userId', async (req, res) => {
         user.logs.push(data)
         // TODO: sort the logs
         user.save()
-        res.status(200).json(true)
+        res.status(200).json(user.logs)
     } catch (error) {
         res.status(500).json({message: 'Was not able to add log.'})
         console.error(error)
@@ -30,7 +30,6 @@ router.post('/shift-logs/:userId', async (req, res) => {
 router.put('/shift-logs/:userId', async (req, res) => {
     const { userId } = req.params
     const { logId, data } = req.body
-    console.log({userId, logId, data});
 
     if ('end' in data) data.end = data.end || null
 
@@ -38,7 +37,7 @@ router.put('/shift-logs/:userId', async (req, res) => {
         const user = await User.findById(userId)
         user.updateLogById(logId, data)
         
-        res.status(200).json(true)
+        res.status(200).json(user.logs)
     } catch (error) {
         res.status(500).json({message: 'Was not able to add log.'})
         console.error(error)

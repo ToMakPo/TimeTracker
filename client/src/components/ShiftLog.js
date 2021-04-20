@@ -1,12 +1,14 @@
 import { useState, useEffect, useRef } from 'react'
 import API from '../utils/API'
 import moment from 'moment'
-import LogRow from './LogRow'
 
 import '../styles/ShiftLog.css'
+import LogRow from './LogRow'
 import FilterButton from './FilterButton'
 
 function ShiftLog({userId}) {
+    const locked = useRef(true)
+    const [logs, setLogs] = useState([])
     const [shifts, setShifts] = useState([])
     const [showFilters, setShowFilters] = useState(false)
     const [currentShift, setCurrentShift] = useState(null)
@@ -14,12 +16,14 @@ function ShiftLog({userId}) {
     const startDateFilter = useRef()
     const endDateFilter = useRef()
 
-    useEffect(getShifts, [])
+    useEffect(async _ => {
+        const logs = await API.getShiftLogs(userId)
+        setLogs(logs)
+    }, [])
+    useEffect(getShifts, [logs])
 
     async function getShifts() {
-        const logs = await API.getShiftLogs(userId)
         const logCount = logs.length
-
         if (logCount == 0) return
 
         const lastShift = logs[logCount - 1]
@@ -49,27 +53,26 @@ function ShiftLog({userId}) {
         }
 
         setShifts(Object.values(shifts))
+        
+        locked.current = false
     }
 
     function toggleFilters() {
+        if (locked.current) return; else locked.current = true
         setShowFilters(!showFilters)
     }
 
     function startShift() {
-        API.addShiftLog(userId, {start: Date.now()})
-        setCurrentShift()
-        getShifts()
+        if (locked.current) return; else locked.current = true
+        API.addShiftLog(userId, {start: Date.now()}).then(logs => setLogs(logs))
     }
     function endShift() {
-        console.log(currentShift._id);
-        API.updateShiftLog(userId, currentShift._id, {end: Date.now()})
-        setCurrentShift()
-        getShifts()
+        if (locked.current) return; else locked.current = true
+        API.updateShiftLog(userId, currentShift._id, {end: Date.now()}).then(logs => setLogs(logs))
     }
     function addShift() {
+        if (locked.current) return; else locked.current = true
         // TODO create add shift options
-        setCurrentShift()
-        getShifts()
     }
 
     return (
@@ -115,7 +118,7 @@ function ShiftLog({userId}) {
                     <tbody>
                         {shifts.map(({date, entries, total}) => {
                             const shift = {date, total, span: entries.length}
-                            console.log(entries);
+
                             return entries.map((entry, i) => i === 0
                                 ? <LogRow key={i} {...entry} {...shift}/>
                                 : <LogRow key={i} {...entry}/>

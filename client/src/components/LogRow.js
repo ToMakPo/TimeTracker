@@ -3,7 +3,6 @@ import Moment from 'react-moment'
 function LogRow({id, start, end, hours, notes, date, total, span}) {
     const dateFormat = 'MMM DD, yyyy[\n]dddd'
     const timeFormat = 'HH:mm'
-    console.log(id);
     
     return (
         <tr className='log-item' data-log-id={id}>
