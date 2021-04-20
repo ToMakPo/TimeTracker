@@ -32,22 +32,28 @@
             position: absolute
             right: 0
             padding: 5px
-
-    & > table
-        border-collapse: collapse
-        width: 100%
-
-        table, td, th
-            padding: 3px 10px
-            border: 1px solid black
-            text-align: center
-            vertical-align: top
-        
-        th
-            background-color: #666
-            color: #fff
     
-    em
-        display: block
-        text-align: center
-        margin: 30px 5px
+    #shift-table
+        width: 100%
+        overflow-x: auto
+        box-sizing: border-box
+
+        & > table
+            border-collapse: collapse
+            width: 100%
+            background-color: #fff
+
+            table, td, th
+                padding: 3px 10px
+                border: 1px solid black
+                text-align: center
+                vertical-align: top
+            
+            th
+                background-color: #666
+                color: #fff
+        
+        em
+            display: block
+            text-align: center
+            margin: 30px 5px

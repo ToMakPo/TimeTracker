@@ -103,31 +103,32 @@ function ShiftLog({userId}) {
                     </span>}
                 </span>
             </div>
-            {shifts.length !== 0
-                ? <table>
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Start</th>
-                            <th>End</th>
-                            <th>Hours</th>
-                            <th>Notes</th>
-                            <th>Total</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {shifts.map(({date, entries, total}) => {
-                            const shift = {date, total, span: entries.length}
-
-                            return entries.map((entry, i) => i === 0
-                                ? <LogRow key={i} {...entry} {...shift}/>
-                                : <LogRow key={i} {...entry}/>
-                            )
-                        })}
-                    </tbody>
-                </table>
-                : <em>-- You have no shifts to display yet. --</em>
-            }
+            <div id='shift-table'>
+                {shifts.length !== 0
+                    ? <table>
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Hours</th>
+                                <th>Notes</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {shifts.map(({date, entries, total}) => {
+                                const shift = {date, total, span: entries.length}
+                                return entries.map((entry, i) => i === 0
+                                    ? <LogRow key={i} {...entry} {...shift}/>
+                                    : <LogRow key={i} {...entry}/>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                    : <em>-- You have no shifts to display yet. --</em>
+                }
+            </div>
         </div>
     )
 }

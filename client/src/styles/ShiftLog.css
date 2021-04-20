@@ -40,24 +40,31 @@
   padding: 5px;
 }
 
-.shift-log > table {
-  border-collapse: collapse;
+.shift-log #shift-table {
   width: 100%;
+  overflow-x: auto;
+  box-sizing: border-box;
 }
 
-.shift-log > table table, .shift-log > table td, .shift-log > table th {
+.shift-log #shift-table > table {
+  border-collapse: collapse;
+  width: 100%;
+  background-color: #fff;
+}
+
+.shift-log #shift-table > table table, .shift-log #shift-table > table td, .shift-log #shift-table > table th {
   padding: 3px 10px;
   border: 1px solid black;
   text-align: center;
   vertical-align: top;
 }
 
-.shift-log > table th {
+.shift-log #shift-table > table th {
   background-color: #666;
   color: #fff;
 }
 
-.shift-log em {
+.shift-log #shift-table em {
   display: block;
   text-align: center;
   margin: 30px 5px;

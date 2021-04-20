@@ -1,2 +1,19 @@
 body
-    // overflow-x: hidden 
+    padding: 5px
+    position: fixed
+    top: 0
+    bottom: 0
+    left: 0
+    right: 0
+
+#root
+    position: relative
+    display: flex
+    flex-direction: column
+    height: 100%
+
+    & > *
+        flex: 0 0 auto
+    
+    & > main
+        flex: 1 1 auto
