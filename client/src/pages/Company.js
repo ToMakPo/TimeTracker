@@ -8,8 +8,8 @@ import '../styles/Form.css'
 import '../styles/Modal.css'
 
 import Input from '../components/Input'
-import AddButton from '../components/AddIcon'
-import CloseButton from '../components/CloseIcon'
+import AddButton from '../components/AddButton'
+import CloseButton from '../components/CloseButton'
 
 const Company = _ => {
     const { companies, setCompany } = useContext(GlobalValues)

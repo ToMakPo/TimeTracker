@@ -1,15 +1,63 @@
-.shift-log {
+.shift-log > div {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+}
+
+.shift-log > div h2 {
+  margin: 0;
+}
+
+.shift-log > div #controls {
+  display: flex;
+  gap: 25px;
+}
+
+.shift-log > div #start-shift-button {
+  background-color: #bada55;
+}
+
+.shift-log > div #end-shift-button {
+  background-color: #da5555;
+}
+
+.shift-log > div #add-shift-button {
+  background-color: #559eda;
+}
+
+.shift-log > div button {
+  padding: 3px 10px;
+}
+
+.shift-log > div #shift-filters {
+  display: block;
+  background-color: #fff;
+  border: 1px solid black;
+  border-radius: 3px;
+  margin: 0 5px;
+  position: absolute;
+  right: 0;
+  padding: 5px;
+}
+
+.shift-log > table {
   border-collapse: collapse;
   width: 100%;
 }
 
-.shift-log table, .shift-log td, .shift-log th {
+.shift-log > table table, .shift-log > table td, .shift-log > table th {
   padding: 3px 10px;
   border: 1px solid black;
   text-align: center;
 }
 
-.shift-log th {
+.shift-log > table th {
   background-color: #666;
   color: #fff;
+}
+
+.shift-log em {
+  display: block;
+  text-align: center;
+  margin: 30px 5px;
 }

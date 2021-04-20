@@ -1,8 +1,9 @@
 import axios from "axios"
 
 const API = {
-    getUserLogs: async userId => (await axios.get('/api/user-logs/' + userId)).data,
-    updateUserLog: async (userId, logId, data) => (await axios.put('/api/user-logs/' + userId), {logId, data}).data,
+    getShiftLogs: async userId => (await axios.get('/api/shift-logs/' + userId)).data,
+    addShiftLog: async (userId, data) => (await axios.post('/api/shift-logs/' + userId, {data})).data,
+    updateShiftLog: async (userId, logId, data) => (await axios.put('/api/shift-logs/' + userId, {logId, data})).data,
 }
 
 export default API

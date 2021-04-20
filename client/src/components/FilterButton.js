@@ -1,10 +1,10 @@
 import { BsFilter } from "react-icons/bs"
 
 function FilterButton({className, size, ...props}) {
-    className = 'menu-button' + (className ? (' ' + className) : '') 
-    return <BsThreeDotsVertical
+    className = 'filter-button' + (className ? (' ' + className) : '') 
+    return <BsFilter
         className={className}
-        size={size || 20}
+        size={size || 30}
         {...props}
     />
 }

@@ -10,8 +10,7 @@ const Home = _ => {
     console.log(user);
     return (
         <div className='home-page'>
-            <h2>Home Page</h2>
-            <ShiftLog userId={user._id}/>
+            <ShiftLog userId={user._id} user={user}/>
         </div>
     )
 }

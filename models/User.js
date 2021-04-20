@@ -43,11 +43,33 @@ const userSchema = new mongoose.Schema({
         default: false
     },
     logs: [{
-        start: Date,
-        end: Date,
-        notes: String
+        start: {
+            type: Date,
+            default: null
+        },
+        end: {
+            type: Date,
+            default: null
+        },
+        notes: {
+            type: String,
+            default: ''
+        }
     }]
 })
+
+userSchema.methods.updateLogById = function(id, data) {
+    for (const i in this.logs) {
+        const log = this.logs[i]
+        if (log._id.equals(id)) {
+            for (const [key, value] of Object.entries(data)) {
+                log[key] = value
+            }
+            this.save()
+            break
+        }
+    }
+}
 
 const User = mongoose.model("user", userSchema)
 
