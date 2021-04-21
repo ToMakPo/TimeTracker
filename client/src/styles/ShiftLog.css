@@ -1,4 +1,11 @@
+.shift-log {
+  max-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .shift-log #shift-header {
+  flex: 0 0 auto;
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
@@ -42,8 +49,9 @@
 }
 
 .shift-log #shift-table {
+  flex: 1 1 auto;
   width: 100%;
-  overflow-x: auto;
+  overflow: auto;
   box-sizing: border-box;
   border: 1px solid black;
 }
