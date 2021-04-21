@@ -1,6 +1,6 @@
 {
-	"short_name": "MyPortfolio",
-	"name": "My personal professional portfolio.",
+	"short_name": "Time Tracker",
+	"name": "Used to track my work hours and pay.",
 	"icons": [{
 		"src": "favicon.ico",
 		"sizes": "256x256 128x128 64x64 48x48 32x32 24x24 16x16",
