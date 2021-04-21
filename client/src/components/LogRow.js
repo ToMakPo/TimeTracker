@@ -1,7 +1,7 @@
 import Moment from 'react-moment'
 
 function LogRow({id, start, end, hours, notes, date, total, span, editLog}) {
-    const dateFormat = 'MMM D, yyyy[\n]dddd'
+    const dateFormat = 'yy-MM-DD[\n]dddd'
     const timeFormat = 'HH:mm'
     
     return (
