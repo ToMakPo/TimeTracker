@@ -47,6 +47,10 @@
   border: 1px solid black;
 }
 
+.shift-log #shift-table * {
+  font-family: monospace;
+}
+
 .shift-log #shift-table > table {
   border-collapse: collapse;
   width: 100%;
