@@ -8,6 +8,7 @@
   background-color: #444444bb;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .modal {
@@ -26,4 +27,27 @@
   position: absolute;
   top: 0.3em;
   right: 0.3em;
+}
+
+.modal h2 {
+  margin: 0 5px 10px;
+}
+
+.modal .button-box {
+  display: flex;
+  grid-gap: 5px;
+  margin-top: 5px;
+}
+
+.modal .button-box button {
+  padding: 5px 15px;
+  font-family: system-ui;
+}
+
+.modal .button-box button:first-child {
+  flex: 1 1 85%;
+}
+
+.modal .button-box button:not(:first-child) {
+  flex: 1 1 auto;
 }

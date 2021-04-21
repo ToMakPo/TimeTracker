@@ -31,6 +31,7 @@ form [class*='-field'] > *:not(label).fit {
 
 form [class*='-field'] label {
   font-size: 0.8em;
+  font-family: auto;
   display: block;
   margin-bottom: -2px;
   margin-left: 5px;
@@ -46,6 +47,7 @@ form .textbox-field textarea {
 form .checkbox {
   align-items: center;
   font-size: 0.8em;
+  font-family: auto;
 }
 
 form .field-group {

@@ -1,35 +1,36 @@
-.shift-log > div {
+.shift-log #shift-header {
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
 }
 
-.shift-log > div h2 {
+.shift-log #shift-header h2 {
   margin: 0;
 }
 
-.shift-log > div #controls {
+.shift-log #shift-header #controls {
   display: flex;
-  gap: 25px;
+  gap: 5px;
 }
 
-.shift-log > div #start-shift-button {
+.shift-log #shift-header #start-shift-button {
   background-color: #bada55;
 }
 
-.shift-log > div #end-shift-button {
+.shift-log #shift-header #end-shift-button {
   background-color: #da5555;
 }
 
-.shift-log > div #add-shift-button {
-  background-color: #559eda;
+.shift-log #shift-header #add-shift-button {
+  background-color: #55b4da;
 }
 
-.shift-log > div button {
+.shift-log #shift-header button {
   padding: 3px 10px;
+  font-family: system-ui;
 }
 
-.shift-log > div #shift-filters {
+.shift-log #shift-header #shift-filters {
   display: block;
   background-color: #fff;
   border: 1px solid black;
@@ -62,6 +63,7 @@
   border: 1px solid black;
   text-align: center;
   vertical-align: top;
+  white-space: pre-wrap;
 }
 
 .shift-log #shift-table > table th {
@@ -73,4 +75,8 @@
   display: block;
   text-align: center;
   margin: 30px 5px;
+}
+
+.shift-log #shift-table .log-notes-cell {
+  text-align: start;
 }

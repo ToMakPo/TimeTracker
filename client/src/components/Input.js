@@ -4,6 +4,7 @@ import '../styles/Form.css'
 
 const Input = forwardRef(({name, type, id, label, ...props}, ref) => {
     id = id || name.toLowerCase().replace(' ', '-') + '-input'
+    console.log(name, props);
     return (
         <div className='input-field form-item'>
             <label htmlFor={id}>{label || name}</label>

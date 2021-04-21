@@ -1,5 +1,5 @@
 .shift-log
-    & > div
+    #shift-header
         display: flex
         justify-content: space-between
         margin-bottom: 5px
@@ -9,7 +9,7 @@
 
         #controls
             display: flex
-            gap: 25px
+            gap: 5px
             
         #start-shift-button
             background-color: #bada55
@@ -18,10 +18,11 @@
             background-color: #da5555
         
         #add-shift-button
-            background-color: #559eda
+            background-color: #55b4da
 
         button
             padding: 3px 10px
+            font-family: system-ui
 
         #shift-filters
             display: block
@@ -52,6 +53,7 @@
                 border: 1px solid black
                 text-align: center
                 vertical-align: top
+                white-space: pre-wrap
             
             th
                 background-color: #666
@@ -61,3 +63,6 @@
             display: block
             text-align: center
             margin: 30px 5px
+
+        .log-notes-cell
+            text-align: start

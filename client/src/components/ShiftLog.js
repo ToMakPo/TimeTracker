@@ -3,15 +3,22 @@ import API from '../utils/API'
 import moment from 'moment'
 
 import '../styles/ShiftLog.css'
+import '../styles/Modal.css'
+import '../styles/Form.css'
 import LogRow from './LogRow'
 import FilterButton from './FilterButton'
+import CloseButton from './CloseButton'
+import Input from './Input'
+import Toast from './Toast'
 
 function ShiftLog({userId}) {
     const locked = useRef(true)
     const [logs, setLogs] = useState([])
     const [shifts, setShifts] = useState([])
     const [showFilters, setShowFilters] = useState(false)
-    const [currentShift, setCurrentShift] = useState(null)
+    const [currentLog, setCurrentShift] = useState(null)
+    const [modal, setModal] = useState()
+    const [toast, setToast] = useState()
 
     const startDateFilter = useRef()
     const endDateFilter = useRef()
@@ -62,29 +69,41 @@ function ShiftLog({userId}) {
         setShowFilters(!showFilters)
     }
 
+    function getLogById(id) {
+        const log = id ? logs.find(log => {
+            return log._id == id
+        }) : null
+        return log
+    }
     function startShift() {
-        if (locked.current) return; else locked.current = true
-        API.addShiftLog(userId, {start: Date.now()}).then(logs => setLogs(logs))
+        addLog({start: Date.now()})
     }
     function endShift() {
-        if (locked.current) return; else locked.current = true
-        API.updateShiftLog(userId, currentShift._id, {end: Date.now()}).then(logs => setLogs(logs))
+        editLog(currentLog._id, {end: Date.now()})
     }
-    function addShift() {
+    function addLog(data) {
         if (locked.current) return; else locked.current = true
-        // TODO create add shift options
+        API.addShiftLog(userId, data).then(logs => setLogs(logs))
+    }
+    function editLog(logId, data) {
+        if (locked.current) return; else locked.current = true
+        API.updateShiftLog(userId, logId, data).then(logs => setLogs(logs))
+    }
+    function deleteLog(logId) {
+        if (locked.current) return; else locked.current = true
+        API.deleteShiftLog(userId, logId).then(logs => setLogs(logs))
     }
 
     return (
         <div className='shift-log'>
-            <div>
+            <div id='shift-header'>
                 <h2>Shifts</h2>
                 <span id='controls'>
-                    {currentShift 
+                    {currentLog 
                         ? <button id='end-shift-button' onClick={endShift}>End Shift</button>
                         : <button id='start-shift-button' onClick={startShift}>Start Shift</button>
                     }
-                    {/* <button id='add-shift-button' onClick={addShift}>Add Shift</button> */}
+                    <button id='add-shift-button' onClick={_ => setModal(<Modal/>)}>Add Shift</button>
                     {/* <FilterButton onClick={toggleFilters}/> */}
                     {showFilters && <span id='shift-filters'>
                         <table>
@@ -119,18 +138,100 @@ function ShiftLog({userId}) {
                         <tbody>
                             {shifts.map(({date, entries, total}) => {
                                 const shift = {date, total, span: entries.length}
-                                return entries.map((entry, i) => i === 0
+                                return entries.map((entry, i) => {
+                                    entry.editLog = _ => setModal(<Modal logId={entry.id}/>)
+                                    return i === 0
                                     ? <LogRow key={i} {...entry} {...shift}/>
                                     : <LogRow key={i} {...entry}/>
-                                )
+                                })
                             })}
                         </tbody>
                     </table>
                     : <em>-- You have no shifts to display yet. --</em>
                 }
             </div>
+            {modal}
+            {toast && <Toast {...toast} setToast={setToast}/>}
         </div>
     )
+
+    function Modal({logId}) {
+        const isNew = logId == undefined
+        const log = isNew ? {} : getLogById(logId)
+        console.log('log:', log);
+
+        const startDateInput = useRef()
+        const endDateInput = useRef()
+        const notesInput = useRef()
+
+        function save(event) {
+            event.preventDefault()
+            const data = {
+                start: startDateInput.current.value,
+                end: endDateInput.current.value,
+                notes: notesInput.current.value,
+            }
+
+            if (data.start === '') {
+                startDateInput.current.focus()
+                setToast({
+                    message: 'You need to have a start time.',
+                    bgColor: 'FireBrick'
+                })
+                return
+            }
+
+            if (data.end === '') {
+                if (currentLog !== null && (isNew || logId !== currentLog.id)) {
+                    endDateInput.current.focus()
+                    setToast({
+                        message: 'You need to have an end time.',
+                        bgColor: 'FireBrick'
+                    })
+                    return
+                }
+            } else {
+                if (data.end <= data.start) {
+                    endDateInput.current.focus()
+                    setToast({
+                        message: 'The end date can not be before the start time.',
+                        bgColor: 'FireBrick'
+                    })
+                    return
+                }
+            }
+
+            isNew ? addLog(data) : editLog(logId, data)
+            setModal()
+        }
+
+        function deleteRecord(event) {
+            event.preventDefault()
+            deleteLog(logId)
+            setModal()
+        }
+
+        return (
+            <div className='modal-bg'>
+                <div className='modal'>
+                    <CloseButton onClick={_ => setModal()} />
+                    <h2>{isNew ? 'New' : 'Edit'} Shift</h2>
+                    <form onSubmit={save}>
+                        <Input name='Start' ref={startDateInput} type='datetime-local' defaultValue={log.start?.substr(0, 16) || ''}/>
+                        <Input name='End' ref={endDateInput} type='datetime-local' defaultValue={log.end?.substr(0, 16) || ''}/>
+                        <Input name='Notes' ref={notesInput} defaultValue={log.notes}/>
+                        
+                        <div className='button-box'>
+                            <button className='bg-accept'>Save</button>
+                            {!isNew && <button onClick={deleteRecord}>
+                                Delete
+                            </button>}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        )
+    }
 }
 
 export default ShiftLog

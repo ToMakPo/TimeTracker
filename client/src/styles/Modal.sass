@@ -8,7 +8,7 @@
     background-color: #444444bb
     display: flex
     justify-content: center
-    align-items: 
+    align-items: center
 
 .modal
     background-color: #fff
@@ -26,3 +26,21 @@
         $offset: 0.3em
         top: $offset
         right: $offset
+    
+    h2
+        margin: 0 5px 10px
+
+    .button-box
+        display: flex
+        grid-gap: 5px
+        margin-top: 5px
+
+        button
+            padding: 5px 15px
+            font-family: system-ui
+
+        button:first-child
+            flex: 1 1 85%
+
+        button:not(:first-child)
+            flex: 1 1 auto

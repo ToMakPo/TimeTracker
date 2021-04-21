@@ -39,26 +39,28 @@ router.put('/shift-logs/:userId', async (req, res) => {
         
         res.status(200).json(user.logs)
     } catch (error) {
-        res.status(500).json({message: 'Was not able to add log.'})
+        res.status(500).json({message: 'Was not able to update log.'})
         console.error(error)
     }
 })
 
-router.delete('/shift-logs/:userId', async (req, res) => {
-    const { userId } = req.params
-    const { logID } = req.body
+router.delete('/shift-logs/:userId/:logId', async (req, res) => {
+    const { userId, logId } = req.params
     try {
         const user = await User.findById(userId)
-        const log = await user.logs.findById(logID)
 
-        for (const [key, value] of Object.entries(updates)) {
-            log[key] = value
-        }
+        for (const i in user.logs) {
+            if (user.logs[i]._id == logId) {
+                user.logs.splice(i, 1)
         
-        user.save()
-        res.status(200).json(true)
+                user.save()
+                res.status(200).json(user.logs)
+                return
+            }
+        }
+        res.status(400).json({message: 'No log with that id was found.'})
     } catch (error) {
-        res.status(500).json({message: 'Was not able to add log.'})
+        res.status(500).json({message: 'Was not able to delete log.'})
         console.error(error)
     }
 })
