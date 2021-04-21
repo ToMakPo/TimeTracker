@@ -23,3 +23,7 @@ body {
 #root > main {
   flex: 1 1 auto;
 }
+
+footer {
+  text-align: center;
+}
