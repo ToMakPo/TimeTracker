@@ -16,7 +16,7 @@
             
         #end-shift-button
             background-color: #da5555
-        
+            
         #add-shift-button
             background-color: #55b4da
 
@@ -46,18 +46,15 @@
         & > table
             border-collapse: collapse
             width: 100%
-            background-color: #fff
 
             table, td, th
                 padding: 3px 10px
                 border: 1px solid black
+            
+            td
                 text-align: center
                 vertical-align: top
                 white-space: pre-wrap
-            
-            th
-                background-color: #666
-                color: #fff
         
         em
             display: block
@@ -66,3 +63,14 @@
 
         .log-notes-cell
             text-align: start
+        
+        thead *
+            background-color: #666
+            color: #fff
+        
+        tbody *
+            background-color: #fff
+        
+        tfoot *
+            background-color: #b1b1b1
+            white-space: pre-wrap

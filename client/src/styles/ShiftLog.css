@@ -55,20 +55,17 @@
 .shift-log #shift-table > table {
   border-collapse: collapse;
   width: 100%;
-  background-color: #fff;
 }
 
 .shift-log #shift-table > table table, .shift-log #shift-table > table td, .shift-log #shift-table > table th {
   padding: 3px 10px;
   border: 1px solid black;
+}
+
+.shift-log #shift-table > table td {
   text-align: center;
   vertical-align: top;
   white-space: pre-wrap;
-}
-
-.shift-log #shift-table > table th {
-  background-color: #666;
-  color: #fff;
 }
 
 .shift-log #shift-table em {
@@ -79,4 +76,18 @@
 
 .shift-log #shift-table .log-notes-cell {
   text-align: start;
+}
+
+.shift-log #shift-table thead * {
+  background-color: #666;
+  color: #fff;
+}
+
+.shift-log #shift-table tbody * {
+  background-color: #fff;
+}
+
+.shift-log #shift-table tfoot * {
+  background-color: #b1b1b1;
+  white-space: pre-wrap;
 }

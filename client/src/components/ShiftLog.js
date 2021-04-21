@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import API from '../utils/API'
 import moment from 'moment'
+import ReactTooltip from 'react-tooltip'
 
 import '../styles/ShiftLog.css'
 import '../styles/Modal.css'
@@ -10,7 +11,6 @@ import FilterButton from './FilterButton'
 import CloseButton from './CloseButton'
 import RestartButton from './RestartButton'
 import Input from './Input'
-import Toast from './Toast'
 
 function ShiftLog({userId}) {
     const locked = useRef(true)
@@ -20,6 +20,7 @@ function ShiftLog({userId}) {
     const [currentLog, setCurrentShift] = useState(null)
     const [modal, setModal] = useState()
     const [toast, setToast] = useState()
+    const [values, setValues] = useState({})
 
     const startDateFilter = useRef()
     const endDateFilter = useRef()
@@ -39,8 +40,18 @@ function ShiftLog({userId}) {
 
         const shifts = {}
 
+        const totals = {
+            start: 0,
+            end: 0,
+            hours: 0,
+            aveHours: 0
+        }
+
+        let lastDayIsToday = false
+
         for (const {_id: id, start, end, notes} of logs) {
-            const date = moment(start).format('yyyy-MM-DD')
+            const day = moment(start).startOf('day')
+            const date = moment(day).format('yyyy-MM-DD')
             const hours = moment.duration(moment(end || Date.now()).diff(moment(start))).asHours()
             const entry = {id, start, end, hours, notes}
             if (!(date in shifts)) {
@@ -52,15 +63,36 @@ function ShiftLog({userId}) {
 
         for (const shift of Object.values(shifts)) {
             let total = 0
-
+            
             for (const { hours } of shift.entries) {
                 total += hours
             }
+            
+
+            if (moment(shift.date).isSame(moment(), 'day')) lastDayIsToday = true
+            const sod = shift.entries[0].start
+            totals.start += moment.duration(moment(sod).diff(moment(shift.date))).asHours()
+            if (!lastDayIsToday) {
+                const eod = shift.entries[shift.entries.length - 1].end
+                totals.end += moment.duration(moment(eod).diff(moment(shift.date))).asHours()
+                totals.aveHours += total
+            }
+            totals.hours += total
 
             shift.total = total
         }
 
         setShifts(Object.values(shifts))
+
+        const dayCount = Object.values(shifts).length
+        const values = {
+            aveStart: moment(0).utc().add(totals.start / dayCount, 'hours').format('HH:mm'),
+            aveEnd: moment(0).utc().add(totals.end / (dayCount - lastDayIsToday), 'hours').format('HH:mm'),
+            aveHours: (totals.hours / logCount).toFixed(2).padStart(5, ' '),
+            aveTotal: (totals.aveHours / (dayCount - lastDayIsToday)).toFixed(2).padStart(7, ' '),
+            ttlTotal: (totals.hours).toFixed(2).padStart(7, ' '),
+        }
+        setValues(values)
         
         locked.current = false
     }
@@ -147,12 +179,24 @@ function ShiftLog({userId}) {
                                 })
                             })}
                         </tbody>
+                        <tfoot>
+                            <tr>
+                                <td>{'Average:\n  Total:'}</td>
+                                <td>{values.aveStart}</td>
+                                <td><span data-tip='Does not include hours for today.'>{values.aveEnd}</span></td>
+                                <td><span data-tip='Does not include hours for today.'>{values.aveHours}</span></td>
+                                <td></td>
+                                <td><span data-tip='Does not include hours for today.'>{values.aveTotal}</span>
+                                {'\n' + values.ttlTotal}</td>
+                            </tr>
+                        </tfoot>
                     </table>
                     : <em>-- You have no shifts to display yet. --</em>
                 }
             </div>
             {modal}
             {toast && <Toast {...toast} setToast={setToast}/>}
+            <ReactTooltip effect='solid' multiline={true}/>
         </div>
     )
 
