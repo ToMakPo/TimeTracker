@@ -16,10 +16,6 @@ function LogRow({id, start, end, hours, notes, date, total, span, editLog}) {
             {total && <td rowSpan={span || 1}>{total.toFixed(2)}</td>}
         </tr>
     )
-
-    function Modal(data) {
-        
-    }
 }
 
 export default LogRow
