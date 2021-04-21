@@ -70,6 +70,11 @@ form button.bg-accept {
   transition: 0.25s;
 }
 
+form button.bg-ltgrey {
+  background-color: Silver;
+  transition: 0.25s;
+}
+
 form button:hover {
   filter: brightness(85%);
 }

@@ -44,3 +44,7 @@ hr {
   height: 1px;
   background-color: #444;
 }
+
+button {
+  border: none;
+}

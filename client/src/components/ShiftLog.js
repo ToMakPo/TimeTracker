@@ -231,7 +231,7 @@ function ShiftLog({userId}) {
                         
                         <div className='button-box'>
                             <button className='bg-accept'>Save</button>
-                            {!isNew && <button onClick={deleteRecord}>
+                            {!isNew && <button className='bg-ltgrey' onClick={deleteRecord}>
                                 Delete
                             </button>}
                         </div>
