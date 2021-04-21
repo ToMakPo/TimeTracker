@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300&display=swap')
+
 html
     height: 100vh
 
@@ -12,12 +14,24 @@ body
     display: flex
     flex-direction: column
     min-height: 100vh
+    $max-width: 960px
 
-    & > *
+    & > header, & > footer
         flex: 0 0 auto
+        width: 100%
+        max-width: $max-width
+        margin: 0 auto
     
     & > main
         flex: 1 1 auto
+        width: 100%
+        max-width: $max-width
+        margin: 0 auto
 
 footer
     text-align: center
+
+hr
+    width: 98vw
+    height: 1px
+    background-color: #444

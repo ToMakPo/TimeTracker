@@ -16,8 +16,14 @@
   gap: 5px;
 }
 
-.page-header h2 {
-  margin: 0;
+.page-header img {
+  height: 40px;
+  transform: translate(5px, 8px);
+}
+
+.page-header h1 {
+  margin: 10px 0 0 0;
+  font-family: 'Lexend', sans-serif;
 }
 
 .page-header a {

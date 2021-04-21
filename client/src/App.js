@@ -18,7 +18,9 @@ const App = _ => {
 	return (
 		<GlobalValues.Provider value={{user}}>
 			<PageHeader loggedIn={loggedIn}/>
+			<hr/>
 			<PageMain loggedIn={loggedIn}/>
+			<hr/>
 			<PageFooter/>
 		</GlobalValues.Provider>
 	)
