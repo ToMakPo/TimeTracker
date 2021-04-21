@@ -32,7 +32,8 @@ form [class*='-field'] > *:not(label).fit {
 form [class*='-field'] label {
   font-size: 0.8em;
   font-family: auto;
-  display: block;
+  display: flex;
+  justify-content: space-between;
   margin-bottom: -2px;
   margin-left: 5px;
   white-space: nowrap;

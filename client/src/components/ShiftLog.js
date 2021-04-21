@@ -8,6 +8,7 @@ import '../styles/Form.css'
 import LogRow from './LogRow'
 import FilterButton from './FilterButton'
 import CloseButton from './CloseButton'
+import RestartButton from './RestartButton'
 import Input from './Input'
 import Toast from './Toast'
 
@@ -158,7 +159,6 @@ function ShiftLog({userId}) {
     function Modal({logId}) {
         const isNew = logId == undefined
         const log = isNew ? {} : getLogById(logId)
-        console.log('log:', log);
 
         const startDateInput = useRef()
         const endDateInput = useRef()
@@ -180,6 +180,7 @@ function ShiftLog({userId}) {
                 })
                 return
             }
+            console.log(data.end <= data.start);
 
             if (data.end === '') {
                 if (currentLog !== null && (isNew || logId !== currentLog.id)) {
@@ -194,7 +195,7 @@ function ShiftLog({userId}) {
                 if (data.end <= data.start) {
                     endDateInput.current.focus()
                     setToast({
-                        message: 'The end date can not be before the start time.',
+                        message: 'The end date can not be before the start date.',
                         bgColor: 'FireBrick'
                     })
                     return
@@ -211,14 +212,21 @@ function ShiftLog({userId}) {
             setModal()
         }
 
+        const startDate = log.start ? moment(log.start).format('yyyy-MM-DDTHH:mm') : ''
+        const endDate = log.end ? moment(log.end).format('yyyy-MM-DDTHH:mm') : ''
+
         return (
             <div className='modal-bg'>
                 <div className='modal'>
                     <CloseButton onClick={_ => setModal()} />
                     <h2>{isNew ? 'New' : 'Edit'} Shift</h2>
                     <form onSubmit={save}>
-                        <Input name='Start' ref={startDateInput} type='datetime-local' defaultValue={log.start?.substr(0, 16) || ''}/>
-                        <Input name='End' ref={endDateInput} type='datetime-local' defaultValue={log.end?.substr(0, 16) || ''}/>
+                        <div className="field-group">
+                            <Input name='Start' ref={startDateInput} type='datetime-local' defaultValue={startDate}/>
+                            <Input name='End' ref={endDateInput} type='datetime-local' defaultValue={endDate} 
+                                include={<RestartButton size={12} onClick={_ => endDateInput.current.value = ''}/>}
+                            />
+                        </div>
                         <Input name='Notes' ref={notesInput} defaultValue={log.notes}/>
                         
                         <div className='button-box'>
