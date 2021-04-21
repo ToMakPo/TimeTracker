@@ -221,12 +221,10 @@ function ShiftLog({userId}) {
                     <CloseButton onClick={_ => setModal()} />
                     <h2>{isNew ? 'New' : 'Edit'} Shift</h2>
                     <form onSubmit={save}>
-                        <div className="field-group">
-                            <Input name='Start' ref={startDateInput} type='datetime-local' defaultValue={startDate}/>
-                            <Input name='End' ref={endDateInput} type='datetime-local' defaultValue={endDate} 
-                                include={<RestartButton size={12} onClick={_ => endDateInput.current.value = ''}/>}
-                            />
-                        </div>
+                        <Input name='Start' ref={startDateInput} type='datetime-local' defaultValue={startDate}/>
+                        <Input name='End' ref={endDateInput} type='datetime-local' defaultValue={endDate} 
+                            include={<RestartButton size={12} onClick={_ => endDateInput.current.value = ''}/>}
+                        />
                         <Input name='Notes' ref={notesInput} defaultValue={log.notes}/>
                         
                         <div className='button-box'>
