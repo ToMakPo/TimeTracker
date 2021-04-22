@@ -136,7 +136,7 @@ function ShiftLog({userId}) {
                         ? <button id='end-shift-button' onClick={endShift}>End Shift</button>
                         : <button id='start-shift-button' onClick={startShift}>Start Shift</button>
                     }
-                    <button id='add-shift-button' onClick={_ => setModal(<Modal/>)}>Add Shift</button>
+                    {/* <button id='add-shift-button' onClick={_ => setModal(<Modal/>)}>Add Shift</button> */}
                     {/* <FilterButton onClick={toggleFilters}/> */}
                     {showFilters && <span id='shift-filters'>
                         <table>
@@ -172,7 +172,8 @@ function ShiftLog({userId}) {
                             {shifts.map(({date, entries, total}) => {
                                 const shift = {date, total, span: entries.length}
                                 return entries.map((entry, i) => {
-                                    entry.editLog = _ => setModal(<Modal logId={entry.id}/>)
+                                    // entry.editLog = _ => setModal(<Modal logId={entry.id}/>)
+                                    entry.editLog = _ => null
                                     return i === 0
                                     ? <LogRow key={i} {...entry} {...shift}/>
                                     : <LogRow key={i} {...entry}/>
