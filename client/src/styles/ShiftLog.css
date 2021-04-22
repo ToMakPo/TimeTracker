@@ -1,7 +1,9 @@
 .shift-log {
-  max-height: 100vh;
-  display: flex;
+  flex: 1 1 auto;
+  height: 100%;
   flex-direction: column;
+  position: sticky;
+  top: 0;
 }
 
 .shift-log #shift-header {
@@ -52,6 +54,7 @@
   flex: 1 1 auto;
   width: 100%;
   overflow: auto;
+  height: 100px;
   box-sizing: border-box;
   border: 1px solid black;
 }
@@ -73,7 +76,7 @@
 .shift-log #shift-table > table td {
   text-align: center;
   vertical-align: top;
-  white-space: pre-wrap;
+  white-space: pre;
 }
 
 .shift-log #shift-table em {
@@ -84,6 +87,7 @@
 
 .shift-log #shift-table .log-notes-cell {
   text-align: start;
+  white-space: pre-wrap;
 }
 
 .shift-log #shift-table thead * {
@@ -97,5 +101,5 @@
 
 .shift-log #shift-table tfoot * {
   background-color: #b1b1b1;
-  white-space: pre-wrap;
+  white-space: pre;
 }

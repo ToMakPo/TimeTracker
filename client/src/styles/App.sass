@@ -8,7 +8,7 @@ body
     margin: 0
     padding: 0 5px
     height: 100%
-    overflow-y: auto
+    overflow: hidden
 
     *
         font-family: 'Lexend', sans-serif
@@ -16,7 +16,7 @@ body
 #root
     display: flex
     flex-direction: column
-    height: 100%
+    height: 100vh
     $max-width: 960px
 
     & > header, & > footer
@@ -35,15 +35,14 @@ footer
     text-align: center
 
 hr
+    flex: 0 0 auto
     width: 98vw
     height: 1px
     background-color: #444
 
 button
     border: none
-
-// [data-tip]::after
-//     content: attr(data-tip)
-//     display: block
-//     position: absolute
+    
+[class*='-page']
+    height: 100%
 

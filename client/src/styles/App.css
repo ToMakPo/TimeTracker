@@ -8,7 +8,7 @@ body {
   margin: 0;
   padding: 0 5px;
   height: 100%;
-  overflow-y: auto;
+  overflow: hidden;
 }
 
 body * {
@@ -18,7 +18,7 @@ body * {
 #root {
   display: flex;
   flex-direction: column;
-  height: 100%;
+  height: 100vh;
 }
 
 #root > header, #root > footer {
@@ -40,6 +40,7 @@ footer {
 }
 
 hr {
+  flex: 0 0 auto;
   width: 98vw;
   height: 1px;
   background-color: #444;
@@ -47,4 +48,8 @@ hr {
 
 button {
   border: none;
+}
+
+[class*='-page'] {
+  height: 100%;
 }
