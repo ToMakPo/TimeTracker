@@ -42,6 +42,50 @@ const userSchema = new mongoose.Schema({
         type: Boolean,
         default: false
     },
+    paystubs: [{
+        payPeriod: {
+            start: Date,
+            end: Date
+        },
+        payDate: Date,
+        company: String,
+        account: String,
+        hours: {
+            regular: {
+                rate: Number,
+                count: Number,
+                total: Number
+            }
+        },
+        taxes: {
+            "Federal Income Tax": Number,
+            "Social Security": Number,
+            "Medicare": Number,
+            "WA Family and Medical Leave Insurance": Number,
+            "WA Workers' Comp Insurance": Number
+        },
+        deductions: {},
+        summary: {
+            "Gross Earnings": Number,
+            "Pre-Tax Deductions/Contributions": Number,
+            "Taxes": Number,
+            "Post-Tax Deductions/Contributions": Number,
+            "Net Pay": Number,
+            "Total Reimbursements": Number,
+            "Check Amount": Number
+        },
+        personalHours: {
+            "Hours used this period": Number,
+            "Hours accrued this period": Number,
+            "Remaining Sick Balance": Number
+        },
+        holidayHours: {
+            "Hours used this period": Number,
+            "Hours accrued this period": Number,
+            "Remaining Sick Balance": Number
+        }
+    }],
+    tags: [String],
     logs: [{
         start: {
             type: Date,
@@ -54,7 +98,8 @@ const userSchema = new mongoose.Schema({
         notes: {
             type: String,
             default: ''
-        }
+        },
+        tags: [String]
     }]
 })
 
