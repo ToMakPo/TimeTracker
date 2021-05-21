@@ -1,13 +1,6 @@
 import Moment from 'react-moment'
 
-function toTimeFormat(hours, pad) {
-    const h = Math.floor(hours).toString().padStart(pad, ' ')
-    const m = Math.round(hours % 1 * 60).toString().padStart(2, '0')
-    const time = h + ':' + m
-    return time
-}
-
-function LogRow({id, start, end, hours, notes, date, total, span, editLog}) {
+function LogRow({id, start, end, hours, notes, date, total, span, editLog, toTimeFormat}) {
     const dateFormat = 'yy-MM-DD[\n]dddd'
     const timeFormat = 'HH:mm'
     

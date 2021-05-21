@@ -126,6 +126,15 @@ function ShiftLog({userId}) {
         if (locked.current) return; else locked.current = true
         API.deleteShiftLog(userId, logId).then(logs => setLogs(logs))
     }
+    
+
+    function toTimeFormat(hours, pad=2) {
+        hours = Math.round(hours * 60) / 60
+        const h = Math.floor(hours).toString().padStart(pad, ' ')
+        const m = Math.round(hours % 1 * 60).toString().padStart(2, '0')
+        const time = h + ':' + m
+        return time
+    }
 
     return (
         <div className='shift-log'>
@@ -175,20 +184,21 @@ function ShiftLog({userId}) {
                                     // entry.editLog = _ => setModal(<Modal logId={entry.id}/>)
                                     entry.editLog = _ => null
                                     return i === 0
-                                    ? <LogRow key={i} {...entry} {...shift}/>
-                                    : <LogRow key={i} {...entry}/>
+                                    ? <LogRow key={i} toTimeFormat={toTimeFormat} {...entry} {...shift}/>
+                                    : <LogRow key={i} toTimeFormat={toTimeFormat} {...entry}/>
                                 })
                             })}
                         </tbody>
                         <tfoot>
                             <tr>
                                 <td>{'Average:\n  Total:'}</td>
+                                {console.log(values)}
                                 <td>{values.aveStart}</td>
                                 <td><span data-tip='Does not include hours for today.'>{values.aveEnd}</span></td>
-                                <td><span data-tip='Does not include hours for today.'>{values.aveHours}</span></td>
+                                <td><span data-tip='Does not include hours for today.'>{toTimeFormat(values.aveHours)}</span></td>
                                 <td></td>
-                                <td><span data-tip='Does not include hours for today.'>{values.aveTotal}</span>
-                                {'\n' + values.ttlTotal}</td>
+                                <td><span data-tip='Does not include hours for today.'>{toTimeFormat(values.aveTotal, 4)}</span>
+                                {'\n' + toTimeFormat(values.ttlTotal, 4)}</td>
                             </tr>
                         </tfoot>
                     </table>
