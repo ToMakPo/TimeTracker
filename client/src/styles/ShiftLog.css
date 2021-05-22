@@ -98,7 +98,19 @@
   background-color: #fff;
 }
 
-.shift-log #shift-table tfoot * {
+.shift-log #shift-table tfoot *, .shift-log #shift-table .tableTotal * {
   background-color: #b1b1b1;
   white-space: pre;
+}
+
+.shift-log .vertCell {
+  position: relative;
+}
+
+.shift-log .vertCell span {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg);
+  font-size: 1.25em;
 }

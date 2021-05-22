@@ -1,11 +1,12 @@
 import Moment from 'react-moment'
 
-function LogRow({id, start, end, hours, notes, date, total, span, editLog, toTimeFormat}) {
+function LogRow({id, start, end, hours, notes, date, total, span, editLog, toTimeFormat, weekNumber, weekSpan}) {
     const dateFormat = 'yy-MM-DD[\n]dddd'
     const timeFormat = 'HH:mm'
     
     return (
         <tr className='log-item' data-log-id={id}>
+            {weekSpan && <td rowSpan={weekSpan} className='vertCell'><span>Week {weekNumber}</span></td>}
             {date && <td rowSpan={span || 1}>
                 <Moment style={{whiteSpace: "pre"}} format={dateFormat}>{date}</Moment>
             </td>}

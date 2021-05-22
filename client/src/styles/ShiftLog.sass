@@ -81,6 +81,16 @@
         tbody *
             background-color: #fff
         
-        tfoot *
+        tfoot *, .tableTotal *
             background-color: #b1b1b1
             white-space: pre
+    
+    .vertCell
+        position: relative
+
+        span
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%) rotate(-90deg)
+            font-size: 1.25em
